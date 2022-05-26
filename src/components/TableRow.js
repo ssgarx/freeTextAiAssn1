@@ -70,9 +70,9 @@ function TableRow({
           </>
         ) : (
           <>
-            <td>{name}</td>
-            <td>{email}</td>
-            <td>{role}</td>
+            <td>{editedName}</td>
+            <td>{editedEmail}</td>
+            <td>{editedRole}</td>
           </>
         )}
         <td>

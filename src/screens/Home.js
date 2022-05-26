@@ -78,7 +78,7 @@ function Home() {
   const handlePaginate = (data = null, pagex = 1) => {
     let tmpArr = [];
     let tmpData = data ?? membersData;
-    tmpData?.forEach((userObject, index) => {
+    tmpData?.forEach((_, index) => {
       if (index >= (pagex - 1) * 10 && index < pagex * 10) {
         tmpArr.push(tmpData[index]);
       }
@@ -283,6 +283,8 @@ function Home() {
     let paginatedMembersDataTmp = paginatedMembersData;
     let i2 = paginatedMembersDataTmp?.findIndex((item) => item.id === id);
     paginatedMembersDataTmp[i2] = editedObj;
+    setPaginatedMembersData(paginatedMembersDataTmp);
+    // handlePaginate(paginatedMembersDataTmp, page);
   };
 
   return (
