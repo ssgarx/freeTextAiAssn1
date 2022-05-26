@@ -177,12 +177,18 @@ function Home() {
 
   //DELETES MANUALLY SELECTED RECORDS
   const handleSingleDelete = (id) => {
-    setPaginatedMembersData((prev) => {
-      return prev.filter((member) => member.id !== id);
-    });
     setMembersData((prev) => {
       return prev.filter((member) => member.id !== id);
     });
+
+    // setPaginatedMembersData((prev) => {
+    //   return prev.filter((member) => member.id !== id);
+    // });
+    let paginatedMembersDataTmp = paginatedMembersData?.filter(
+      (item) => item.id !== id
+    );
+    setPaginatedMembersData(paginatedMembersDataTmp);
+
     if (searchedResults?.length > 0) {
       setSearchedResults((prev) => {
         return prev.filter((member) => member.id !== id);
@@ -220,15 +226,12 @@ function Home() {
         searchedResultsTmp?.splice(index3, 1);
       }
     });
-    setPaginatedMembersData(paginatedMembersDataTmp);
+
     setMembersData(membersDataTmp);
     searchedResults?.length > 0 && setSearchedResults(searchedResultsTmp);
-    handlePaginate(paginatedMembersDataTmp, page);
     setIsSelectedAll(false);
-  };
-
-  const handleEdit = () => {
-    alert("cant edit :( ");
+    setPaginatedMembersData(paginatedMembersDataTmp);
+    handlePaginate(null, page);
   };
 
   //HANDLES SORTING ON HEADING CLICK
@@ -270,6 +273,18 @@ function Home() {
     }
   };
 
+  //HANDLES SAVING EDITED DATA
+  const handleSaveEdit = (id, editedObj) => {
+    let membersDataTmp = membersData;
+    let i1 = membersDataTmp?.findIndex((item) => item.id === id);
+    membersDataTmp[i1] = editedObj;
+    setMembersData(membersDataTmp);
+
+    let paginatedMembersDataTmp = paginatedMembersData;
+    let i2 = paginatedMembersDataTmp?.findIndex((item) => item.id === id);
+    paginatedMembersDataTmp[i2] = editedObj;
+  };
+
   return (
     <div className={styles.homeBox}>
       <div className={styles.hbContent}>
@@ -308,11 +323,11 @@ function Home() {
               handleSelect={handleSelect}
               selected={selected}
               handleSingleDelete={handleSingleDelete}
-              handleEdit={handleEdit}
               paginatedMembersData={paginatedMembersData}
               handleSelectAll={handleSelectAll}
               isSelectedAll={isSelectedAll}
               handleTapSort={handleTapSort}
+              handleSaveEdit={handleSaveEdit}
             />
             <PaginateBox
               membersData={membersData}

@@ -6,11 +6,11 @@ function TableHolder({
   handleSelect,
   selected,
   handleSingleDelete,
-  handleEdit,
   paginatedMembersData,
   handleSelectAll,
   isSelectedAll,
   handleTapSort,
+  handleSaveEdit,
 }) {
   return (
     <div className={styles.tableHolderBox}>
@@ -50,7 +50,7 @@ function TableHolder({
                 handleSelect={handleSelect}
                 selected={selected}
                 handleSingleDelete={handleSingleDelete}
-                handleEdit={handleEdit}
+                handleSaveEdit={handleSaveEdit}
               />
             );
           })}

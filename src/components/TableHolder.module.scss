@@ -38,14 +38,6 @@ table {
   tr {
     > th:last-child {
       display: none;
-      @media screen and (max-width: 850px) {
-        display: none;
-      }
-    }
-    > td:last-child {
-      @media screen and (max-width: 850px) {
-        display: none;
-      }
     }
   }
   th {
@@ -64,11 +56,13 @@ table {
   }
   .actionBox {
     @include flexRowCenter;
+    flex-wrap: nowrap;
     box-sizing: border-box;
     display: none;
     @media screen and (max-width: 850px) {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: flex-start;
     }
     > button {
       border: none;
@@ -88,7 +82,8 @@ table {
         object-fit: contain;
       }
     }
-    > button:nth-child(1) {
+    > button:nth-child(1),
+    button:nth-child(2) {
       margin-right: 10px;
       @media screen and (max-width: 850px) {
         margin-right: 0px;
@@ -161,6 +156,17 @@ table {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
+}
+.edit {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  outline: none;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
 }
 @keyframes popIn {
   0% {
