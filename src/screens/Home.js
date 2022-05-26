@@ -26,10 +26,10 @@ function Home() {
   }, []);
 
   useEffect(() => {
+    //DEBOUNCE FUNCTION ADDS DELAY TO SEARCH AS THE USER TYPES
     const delayDebounceFn = setTimeout(() => {
       searchedText && handleSearch(searchedText);
       if (searchedText?.length === 0) {
-        // fetchMembersData();
         setSearchedResults([]);
         handlePaginate();
         setIsSelectedAll(false);
@@ -39,6 +39,7 @@ function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchedText]);
 
+  //FOR SEARCHING THROUGH THE RECORDS
   const handleSearch = (searchedText) => {
     let result = membersData?.filter(
       (item) =>
@@ -54,6 +55,7 @@ function Home() {
     handlePaginate(result, 1);
   };
 
+  //API CALL
   const fetchMembersData = async () => {
     setIsFetching(true);
 
@@ -67,13 +69,14 @@ function Home() {
         handlePaginate(data, 1);
       })
       .catch((error) => {
+        console.log("ERROR", error);
         setIsFetching(false);
       });
   };
 
+  //TAKES RAW FETCHED DATA AND PAGINATES IT
   const handlePaginate = (data = null, pagex = 1) => {
     let tmpArr = [];
-
     let tmpData = data ?? membersData;
     tmpData?.forEach((userObject, index) => {
       if (index >= (pagex - 1) * 10 && index < pagex * 10) {
@@ -84,6 +87,7 @@ function Home() {
     tmpData = null;
   };
 
+  //HANDLES CHANGING PAGES
   const handlePageClick = (
     index = null,
     isIncrement = null,
@@ -130,6 +134,7 @@ function Home() {
     }
   };
 
+  //HANDLES MULTIPLE RECORDS  SELECTED MANUALLY
   const handleSelect = (id) => {
     setIsSelectedAll(false);
     if (selected.includes(id)) {
@@ -155,6 +160,7 @@ function Home() {
     }
   };
 
+  //HANDLES SELECT ALL
   const handleSelectAll = () => {
     setIsSelectedAll(!isSelectedAll);
     if (selected?.length === paginatedMembersData?.length) {
@@ -169,6 +175,7 @@ function Home() {
     }
   };
 
+  //DELETES MANUALLY SELECTED RECORDS
   const handleSingleDelete = (id) => {
     setPaginatedMembersData((prev) => {
       return prev.filter((member) => member.id !== id);
@@ -184,6 +191,7 @@ function Home() {
     setIsSelectedAll(false);
   };
 
+  //HANDLES DELETE ALL
   const handleDeleteAll = () => {
     let paginatedMembersDataTmp = paginatedMembersData;
     let membersDataTmp = membersData;
@@ -223,10 +231,11 @@ function Home() {
     alert("cant edit :( ");
   };
 
+  //HANDLES SORTING ON HEADING CLICK
   const handleTapSort = (col) => {
     let sortTmp = tapSort === 0 ? 1 : tapSort === 1 ? 2 : 0;
+    //1 --> ASCENDING, 2--> DESCENDING, 3--> DEFAULT
     tapSort = sortTmp;
-
     if (tapSort === 0 || tapSort === 1) {
       let membersDataTmp =
         searchedResults?.length > 0 ? searchedResults : membersData;
