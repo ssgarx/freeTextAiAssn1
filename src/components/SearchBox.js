@@ -13,7 +13,7 @@ function SearchBox({ searchedText, setSearchedText }) {
       </div>
       <div>
         <input
-          autoFocus={true}
+          autoFocus={false}
           autoComplete="off"
           type="text"
           placeholder="search"

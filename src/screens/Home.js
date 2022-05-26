@@ -8,6 +8,7 @@ import PaginateBox from "../components/PaginateBox";
 import SearchBox from "../components/SearchBox";
 import TableHolder from "../components/TableHolder";
 import LineLoader from "../components/LineLoader";
+import { useRef } from "react";
 
 let tapSort = 0;
 function Home() {
@@ -19,23 +20,28 @@ function Home() {
   const [page, setPage] = useState(1);
   const [isSelectedAll, setIsSelectedAll] = useState(false);
   const [searchedResults, setSearchedResults] = useState([]);
-
+  const isMounted = useRef(false);
   useEffect(() => {
     fetchMembersData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //THIS USEEFFECT IS PREVENTED FROM RUNNING ON 1ST RENDER USING REF
   useEffect(() => {
-    //DEBOUNCE FUNCTION ADDS DELAY TO SEARCH AS THE USER TYPES
-    const delayDebounceFn = setTimeout(() => {
-      searchedText && handleSearch(searchedText);
-      if (searchedText?.length === 0) {
-        setSearchedResults([]);
-        handlePaginate();
-        setIsSelectedAll(false);
-      }
-    }, 500);
-    return () => clearTimeout(delayDebounceFn);
+    if (isMounted.current) {
+      //DEBOUNCE FUNCTION ADDS DELAY TO SEARCH AS THE USER TYPES
+      const delayDebounceFn = setTimeout(() => {
+        searchedText && handleSearch(searchedText);
+        if (searchedText?.length === 0) {
+          setSearchedResults([]);
+          handlePaginate();
+          setIsSelectedAll(false);
+        }
+      }, 500);
+      return () => clearTimeout(delayDebounceFn);
+    } else {
+      isMounted.current = true;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchedText]);
 
@@ -58,15 +64,14 @@ function Home() {
   //API CALL
   const fetchMembersData = async () => {
     setIsFetching(true);
-
     fetch(
       "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json"
     )
       .then((response) => response.json())
       .then((data) => {
-        setIsFetching(false);
         setMembersData(data);
         handlePaginate(data, 1);
+        setIsFetching(false);
       })
       .catch((error) => {
         console.log("ERROR", error);
@@ -84,7 +89,7 @@ function Home() {
       }
     });
     setPaginatedMembersData(tmpArr);
-    tmpData = null;
+    // tmpData = null;
   };
 
   //HANDLES CHANGING PAGES
@@ -181,9 +186,6 @@ function Home() {
       return prev.filter((member) => member.id !== id);
     });
 
-    // setPaginatedMembersData((prev) => {
-    //   return prev.filter((member) => member.id !== id);
-    // });
     let paginatedMembersDataTmp = paginatedMembersData?.filter(
       (item) => item.id !== id
     );
@@ -284,7 +286,6 @@ function Home() {
     let i2 = paginatedMembersDataTmp?.findIndex((item) => item.id === id);
     paginatedMembersDataTmp[i2] = editedObj;
     setPaginatedMembersData(paginatedMembersDataTmp);
-    // handlePaginate(paginatedMembersDataTmp, page);
   };
 
   return (
