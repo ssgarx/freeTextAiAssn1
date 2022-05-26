@@ -1,0 +1,83 @@
+@import "../partials.scss";
+.homeBox * {
+  background-color: transparent;
+  transition: 0.2s;
+}
+.homeBox {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  @media only screen and (max-width: 760px),
+    (min-device-width: 768px) and (max-device-width: 1024px) {
+    overflow: scroll;
+  }
+  @include flexRowCenter;
+  .hbContent {
+    @include flexColumnCenter;
+    width: 50%;
+    @media screen and (max-width: 1400px) {
+      width: 60%;
+    }
+    @media screen and (max-width: 1150px) {
+      width: 70%;
+    }
+    @media screen and (max-width: 1100px) {
+      width: 90%;
+    }
+    @media screen and (max-width: 800px) {
+      width: 95%;
+    }
+    > div {
+      width: 100%;
+    }
+    .hbcUpper {
+      @include flexRowCenter;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      .hbcUpperLeft {
+        > p {
+          font-style: normal;
+          font-weight: 800;
+          font-size: 20px;
+          line-height: 24px;
+          color: rgba(255, 255, 255, 0.29);
+        }
+      }
+    }
+    .hbcLower {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      > div:nth-child(1) {
+        flex: 7;
+      }
+      .hbclDeleteBtn {
+        flex: 1;
+        @include themTextStyleNormal;
+        padding: 17px 10px;
+        border-radius: $themeBorderRadius;
+        border: none;
+        background-color: $themeElevation1Color;
+        animation: popIn 0.3s normal;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.8;
+        }
+        &:active {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

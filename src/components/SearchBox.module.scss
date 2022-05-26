@@ -1,0 +1,39 @@
+@import "../partials.scss";
+.searchBoxBox1 * {
+  background-color: transparent;
+}
+.searchBoxBox1 {
+  @include flexRowCenter;
+  justify-content: space-between;
+  background-color: $themeElevation1Color !important;
+  padding: 10px;
+  border-radius: $themeBorderRadius;
+  > div {
+    @include flexRowCenter;
+  }
+  > div:nth-child(1) {
+    flex: 0.5;
+    text-align: left;
+  }
+  > div:nth-child(2) {
+    flex: 10;
+    > input {
+      width: 100%;
+      border: none;
+      background-color: transparent;
+      outline: none;
+
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 35px;
+      display: flex;
+      align-items: center;
+      margin: 0 10px;
+    }
+  }
+  > div:nth-child(3) {
+    flex: 0.5;
+    cursor: pointer;
+  }
+}

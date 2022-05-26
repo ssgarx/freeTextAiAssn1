@@ -1,0 +1,206 @@
+@import "../partials.scss";
+.tableHolderBox * {
+  background-color: transparent;
+}
+.tableHolderBox {
+  margin: 10px 0;
+  overflow: hidden;
+  @media screen and (max-width: 850px) {
+    overflow: scroll;
+  }
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  colgroup {
+    > col:nth-child(1) {
+      width: 5%;
+    }
+    > col:nth-child(2) {
+      width: 20%;
+    }
+    > col:nth-child(3) {
+      width: 20%;
+    }
+    > col:nth-child(4) {
+      width: 15%;
+    }
+    > col:nth-child(5) {
+      width: 15%;
+    }
+  }
+  td,
+  th {
+    text-align: left;
+    padding: 15px 10px;
+  }
+  tr {
+    > th:last-child {
+      display: none;
+      @media screen and (max-width: 850px) {
+        display: none;
+      }
+    }
+    > td:last-child {
+      @media screen and (max-width: 850px) {
+        display: none;
+      }
+    }
+  }
+  th {
+    @include themeTextStyleHeader;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  td {
+    @include themTextStyleNormal;
+  }
+  td {
+    border-top: 1px solid $themeElevation1Color;
+  }
+  td:nth-child(5) {
+    padding: 0px !important;
+  }
+  .actionBox {
+    @include flexRowCenter;
+    box-sizing: border-box;
+    display: none;
+    @media screen and (max-width: 850px) {
+      display: flex;
+      flex-direction: column;
+    }
+    > button {
+      border: none;
+      background-color: $themeElevation1Color;
+      cursor: pointer;
+      padding: 8px 15px;
+      border-radius: 10px;
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        opacity: 1;
+      }
+      > img {
+        width: 15px;
+        height: 15px;
+        object-fit: contain;
+      }
+    }
+    > button:nth-child(1) {
+      margin-right: 10px;
+      @media screen and (max-width: 850px) {
+        margin-right: 0px;
+      }
+    }
+  }
+  tr {
+    &:hover {
+      .actionBox {
+        display: flex;
+        animation: popIn 0.1s normal;
+      }
+    }
+  }
+
+  /* The container */
+  .container {
+    // display: block;
+    position: relative;
+    padding-left: 5px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: 2px solid $themeText1Color;
+  }
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: $themeHighLightColor;
+    border: 2px solid $themeHighLightColor;
+  }
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 5px;
+    top: 1.5px;
+    width: 3px;
+    height: 8px;
+    border: solid $themeText1Color;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+  /* Force table to not be like tables anymore */
+  table,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  th {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  /*
+	Label the data
+	*/
+  td:nth-of-type(1):before {
+    content: "";
+  }
+  td:nth-of-type(2):before {
+    content: "name: ";
+  }
+  td:nth-of-type(3):before {
+    content: "email: ";
+  }
+  td:nth-of-type(4):before {
+    content: "role: ";
+  }
+}

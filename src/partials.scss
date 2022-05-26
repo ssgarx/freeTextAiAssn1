@@ -1,0 +1,32 @@
+$themeBackgroundColor: #141c2f;
+$themeElevation1Color: #1f2a48;
+$themeText1Color: #d3d3d3;
+$themeHighLightColor: #0079ff;
+$themeBorderRadius: 15px;
+
+@mixin flexRowCenter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+@mixin flexColumnCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+@mixin themTextStyleNormal {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: $themeText1Color;
+}
+@mixin themeTextStyleHeader {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: $themeText1Color;
+}
