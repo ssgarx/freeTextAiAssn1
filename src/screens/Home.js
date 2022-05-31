@@ -17,6 +17,7 @@ function Home() {
   const [isFetching, setIsFetching] = useState(null);
   const [selected, setSelected] = useState([]);
   const [paginatedMembersData, setPaginatedMembersData] = useState([]);
+  console.log("paginatedMembersData", paginatedMembersData);
   const [page, setPage] = useState(1);
   const [isSelectedAll, setIsSelectedAll] = useState(false);
   const [searchedResults, setSearchedResults] = useState([]);
@@ -58,6 +59,7 @@ function Home() {
     setIsSelectedAll(false);
     setSelected([]);
     setSearchedResults(result);
+    console.log("result", result);
     handlePaginate(result, 1);
   };
 
@@ -335,12 +337,15 @@ function Home() {
               handleTapSort={handleTapSort}
               handleSaveEdit={handleSaveEdit}
             />
-            <PaginateBox
-              membersData={membersData}
-              handlePageClick={handlePageClick}
-              page={page}
-              searchedResults={searchedResults}
-            />
+
+            {paginatedMembersData?.length > 0 && (
+              <PaginateBox
+                membersData={membersData}
+                handlePageClick={handlePageClick}
+                page={page}
+                searchedResults={searchedResults}
+              />
+            )}
           </>
         ) : null}
       </div>
