@@ -17,8 +17,8 @@ function Home() {
   const [isFetching, setIsFetching] = useState(null);
   const [selected, setSelected] = useState([]);
   const [paginatedMembersData, setPaginatedMembersData] = useState([]);
-  console.log("paginatedMembersData", paginatedMembersData);
   const [page, setPage] = useState(1);
+  console.log("page", page);
   const [isSelectedAll, setIsSelectedAll] = useState(false);
   const [searchedResults, setSearchedResults] = useState([]);
   const isMounted = useRef(false);
@@ -61,6 +61,7 @@ function Home() {
     setSearchedResults(result);
     console.log("result", result);
     handlePaginate(result, 1);
+    result?.length > 0 && setPage(1);
   };
 
   //API CALL
