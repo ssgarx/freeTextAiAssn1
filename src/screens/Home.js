@@ -16,7 +16,6 @@ function Home() {
   const [searchedText, setSearchedText] = useState("");
   const [isFetching, setIsFetching] = useState(null);
   const [selected, setSelected] = useState([]);
-  console.log("selected", selected);
   const [paginatedMembersData, setPaginatedMembersData] = useState([]);
   const [page, setPage] = useState(1);
   const [isSelectedAll, setIsSelectedAll] = useState(false);
@@ -51,9 +50,9 @@ function Home() {
     let result = membersData?.filter(
       (item) =>
         !(
-          item.name.toLowerCase().indexOf(searchedText) === -1 &&
-          item.role.toLowerCase().indexOf(searchedText) === -1 &&
-          item.email.toLowerCase().indexOf(searchedText) === -1
+          item.name.toLowerCase().indexOf(searchedText?.toLowerCase()) === -1 &&
+          item.role.toLowerCase().indexOf(searchedText?.toLowerCase()) === -1 &&
+          item.email.toLowerCase().indexOf(searchedText?.toLowerCase()) === -1
         )
     );
     setIsSelectedAll(false);
