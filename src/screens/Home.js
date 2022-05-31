@@ -18,10 +18,10 @@ function Home() {
   const [selected, setSelected] = useState([]);
   const [paginatedMembersData, setPaginatedMembersData] = useState([]);
   const [page, setPage] = useState(1);
-  console.log("page", page);
   const [isSelectedAll, setIsSelectedAll] = useState(false);
   const [searchedResults, setSearchedResults] = useState([]);
   const isMounted = useRef(false);
+
   useEffect(() => {
     fetchMembersData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,7 +59,6 @@ function Home() {
     setIsSelectedAll(false);
     setSelected([]);
     setSearchedResults(result);
-    console.log("result", result);
     handlePaginate(result, 1);
     result?.length > 0 && setPage(1);
   };
