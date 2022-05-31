@@ -16,6 +16,7 @@ function Home() {
   const [searchedText, setSearchedText] = useState("");
   const [isFetching, setIsFetching] = useState(null);
   const [selected, setSelected] = useState([]);
+  console.log("selected", selected);
   const [paginatedMembersData, setPaginatedMembersData] = useState([]);
   const [page, setPage] = useState(1);
   const [isSelectedAll, setIsSelectedAll] = useState(false);
@@ -167,7 +168,9 @@ function Home() {
 
   //HANDLES SELECT ALL
   const handleSelectAll = () => {
-    setIsSelectedAll(!isSelectedAll);
+    setIsSelectedAll(!isSelectedAll); //toggle
+    // console.log("paginatedMembersData", paginatedMembersData);
+    // console.log("selected", selected);
     if (selected?.length === paginatedMembersData?.length) {
       setSelected([]);
     } else {
@@ -234,6 +237,7 @@ function Home() {
     setIsSelectedAll(false);
     setPaginatedMembersData(paginatedMembersDataTmp);
     handlePaginate(null, page);
+    setSelected([]);
   };
 
   //HANDLES SORTING ON HEADING CLICK
